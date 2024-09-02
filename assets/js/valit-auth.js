@@ -4,7 +4,7 @@ dataUser.token = localStorage.getItem("token");
 
 axios
   .post(
-    "https://corsproxy.io/?https://n8n.caprover.dreamcanvas.cloud/webhook/9c28c449-4690-4fe4-98ba-5ed296d00bf6",
+    "https://n8n.caprover.dreamcanvas.cloud/webhook/9c28c449-4690-4fe4-98ba-5ed296d00bf6",
     dataUser
   )
   .then(function (response) {
