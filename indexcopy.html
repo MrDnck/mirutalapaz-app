@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+
+<style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+
+
+</head>
+<body>
+
+
+
+<div id='map'></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jpc3RpYW5jbSIsImEiOiJja3g2azVkYWMwZjJzMm9xbW52cXVqY3B4In0.YtVYPcSICSRBeQ7ApTjp_A'; // Reemplaza 'YOUR_MAPBOX_ACCESS_TOKEN' con tu propio token
+
+    navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
+        enableHighAccuracy: true
+    });
+
+    function successLocation(position) {
+        setupMap([position.coords.longitude, position.coords.latitude]);
+    }
+
+    function errorLocation() {
+        setupMap([-2.24, 53.48]); // Si falla la geolocalización, establece una ubicación predeterminada
+    }
+
+    function setupMap(center) {
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: center,
+            zoom: 15
+        });
+
+        var marker = new mapboxgl.Marker({ color: 'blue' })
+            .setLngLat(center)
+            .addTo(map);
+        
+        map.addControl(new mapboxgl.NavigationControl());
+    }
+</script>
+</body>
+
+<script>
+    var tokenMap = "pk.eyJ1IjoiY3Jpc3RpYW5jbSIsImEiOiJja3g2azVkYWMwZjJzMm9xbW52cXVqY3B4In0.YtVYPcSICSRBeQ7ApTjp_A"
+</script>
+</html>

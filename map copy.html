@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Agrega los enlaces a los archivos CSS de MaterializeCSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+</head>
+<style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.app {
+  width: 100%;
+  /* height: 100vh; */
+}
+
+header {
+  background-color: #fff;
+  padding: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+main {
+  padding: 1rem;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #ccc;
+  padding: 1rem;
+}
+
+.tabs {
+    height: auto !important;
+    display: flex;
+    justify-content: center;
+    background-color: #ccc;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tabs li {
+    font-size: 1.2rem;
+  display: inline-block;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border-radius: 2px;
+}
+
+.tabs li a {
+  color: #000;
+  text-decoration: none;
+}
+
+.tabs li.active a {
+  /* background-color: #000; */
+  color: #0326a3;
+}
+
+.hamburger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  height: 3rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger i {
+  color: #000;
+  font-size: 2.5rem;
+}
+
+.hamburger.is-active {
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.hamburger.is-active i {
+  transform: rotate(45deg);
+}
+
+</style>
+
+<body>
+
+    <ul id="slide-out" class="sidenav">
+        <li><div class="user-view">
+          <div class="background">
+            <img src="/assets/img/office.jpg">
+          </div>
+          <a href="#"><img class="circle" id="photo" src="https://ui-avatars.com/api/?background=random&format=svg&bold=true&name=cristian@gmail.com"></a>
+          <a href="#"><span class="white-text name email" id="email">cristian@gmail.com</span></a>
+          <!-- <a href="#"><span class="white-text email">jdandturk@gmail.com</span></a> -->
+        </div></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">favorite</i>Favoritos</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">report</i>Alertas</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">mail</i>Notificaciones</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">settings</i>Configuracion</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">share</i>Compartir</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">help</i>Ayuda y soporte</a></li>
+        <li><a href="javascript:logout()" class="waves-effect"><i class="material-icons">logout</i>Cerrar sesion</a></li>
+      </ul>
+
+
+    <div class="app">
+        <header>
+          <button class="hamburger">
+            <i class="fa fa-bars"></i>
+          </button>
+          <h1>Titulo</h1>
+        </header>
+        <main>
+          <section>
+            <p>Contenidosuspendisse sed nisincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus</p>
+          </section>
+        </main>
+        <footer>
+    <ul class="tabs">
+      <li class="active"><a href="#">
+        <i class="fa fa-bus"></i>
+        Paradas
+      </a></li>
+      <li><a href="#">
+        <i class="fa fa-map-marker-alt"></i>
+        Ubicaciones
+      </a></li>
+      <li><a href="#">
+        <i class="fa fa-road"></i>
+        Líneas
+      </a></li>
+    </ul>
+    
+        </footer>
+      </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de MaterializeCSS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/assets/js/valit-auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // let elems = document.querySelectorAll('.modal');
+                // let instances = M.Modal.init(elems);
+                // M.Sidenav.init(document.querySelectorAll('.sidenav'));
+                window.perfileSet();
+                M.AutoInit();
+                
+            });
+
+            const hamburger = document.querySelector(".hamburger");
+            hamburger.addEventListener("click", function () {
+                let instaside = M.Sidenav.getInstance(document.getElementById("slide-out"));
+                instaside.open();
+            });
+            
+
+
+
+            function comingSoon() {
+                M.toast({html: '<span>Esta opcion aun esta en desarrollo</span>'});
+                let instaside = M.Sidenav.getInstance(document.getElementById("slide-out"));
+                instaside.close();
+            }
+
+
+
+
+            function perfileSet() {
+                let mainUrl = "https://ui-avatars.com/api/?background=random&format=svg&bold=true&name=";
+                let user = JSON.parse(localStorage.getItem('user'));
+                document.getElementById("photo").src = `${mainUrl}${user.email}`;
+                document.getElementById("email").innerText = `${user.email}`;
+            }
+            
+
+
+            function logout() {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = "/index.html"
+            }
+
+    </script>
+</body>
+</html>

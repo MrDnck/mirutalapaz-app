@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Agrega los enlaces a los archivos CSS de MaterializeCSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="/assets/js/estric-auth.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/index.html">Volver a la página principal</a>
+        </div>
+        <h2>Registro</h2>
+        <form class="col s12" id="register">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" required>
+                    <label for="email">Correo Electrónico</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="phone" type="tel" class="validate" required>
+                    <label for="phone">Número de Teléfono</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" required>
+                    <label for="password">Contraseña</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Registrarse
+                <i class="material-icons right">send</i>
+            </button>
+        </form>  
+    </div>
+
+
+
+ <!-- Modal Structure -->
+ <div id="modal1" class="modal">
+   <div class="modal-content">
+     <h4>Register</h4>
+     <p>El registo se realizo de forma satisfactoria</p>
+   </div>
+   <div class="modal-footer">
+     <a href="/login.html" class="modal-close waves-effect waves-green btn-flat">Login</a>
+   </div>
+ </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Agrega los enlaces a los archivos JavaScript de MaterializeCSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <script>
+        document.getElementById('register').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe y la página se recargue
+
+            // Validación de HTML simple
+            if (this.checkValidity()) {
+                // Recuperar datos del formulario
+                var email = document.getElementById('email').value;
+                var phone = document.getElementById('phone').value;
+                var password = document.getElementById('password').value;
+
+                // Alerta con los datos del formulario
+                var data = {
+                    email: email,
+                    phone: phone,
+                    password: password
+                };
+
+                // Enviar los datos al servidor utilizando Axios
+                axios.post('https://corsproxy.io/?https://n8n.caprover.dreamcanvas.cloud/webhook/11fbad28-3826-4768-a5b7-9f4c95984841', data)
+                    .then(function(response) {
+                        // Manejar la respuesta del servidor aquí
+                        let data = response.data
+                        console.log(data); // Puedes mostrar la respuesta en la consola o realizar otras acciones
+                        if (data.success == true && !data.message) {
+                            let instance = M.Modal.getInstance(document.getElementById("modal1"));
+                            instance.open();
+                        } else {
+                            let toastHTML = '<span>La cuenta ya existe: inicia sesion</span><a href="/login.html" class="btn-flat toast-action">Login</a>';
+                            M.toast({html: toastHTML});
+                        }
+                    })
+                    .catch(function(error) {
+                        // Manejar los errores aquí
+                        console.error(error);
+                    });
+
+            } else {
+                alert("Por favor complete todos los campos requeridos.");
+            }
+        });
+
+
+
+
+        // var instance = M.Modal.getInstance(document.querySelectorAll("#modal1"));
+        // instance.open();
+            document.addEventListener('DOMContentLoaded', function () {
+                // let elems = document.querySelectorAll('.modal');
+                // let instances = M.Modal.init(elems);
+                M.AutoInit();
+            });
+
+
+
+
+    </script>
+</body>
+</html>

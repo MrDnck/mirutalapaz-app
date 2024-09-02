@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Agrega los enlaces a los archivos CSS de MaterializeCSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="/assets/js/estric-auth.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .buttons-container {
+            text-align: center;
+        }
+        .button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons-container">
+        <h2>Bienvenido a Miruta</h2>
+        <div class="carousel carousel-slider center">
+            <div class="carousel-item red white-text" href="#one!">
+                <img src="/assets/img/iPhone 14 & 15 Pro Max - 1.png">
+            </div>
+            <div class="carousel-item amber white-text" href="#two!">
+                <img src="/assets/img/iPhone 14 & 15 Pro Max - 2.png">
+            </div>
+            <div class="carousel-item green white-text" href="#three!">
+                <img src="/assets/img/iPhone 14 & 15 Pro Max - 3.png">
+            </div>
+            <div class="carousel-item blue white-text" href="#four!">
+                <img src="/assets/img/iPhone 14 & 15 Pro Max - 4.png">
+            </div>
+          </div>
+
+
+
+        <a class="waves-e ffect waves-light btn button" href="https://ornate-mousse-1fbe44.netlify.app/register.html">Registro</a>
+        <a class="waves-effect waves-light btn button" href="https://ornate-mousse-1fbe44.netlify.app/login.html">Iniciar Sesión</a>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de MaterializeCSS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+                // let elems = document.querySelectorAll('.modal');
+                // let instances = M.Modal.init(elems);
+                M.AutoInit();
+    var instance = M.Carousel.init(document.querySelectorAll('.carousel'), {
+        fullWidth: true,
+        indicators: true
+    });
+            });
+    </script>
+</body>
+</html>

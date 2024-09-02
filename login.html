@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Agrega los enlaces a los archivos CSS de MaterializeCSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="/assets/js/estric-auth.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/index.html">Volver a la página principal</a>
+        </div>
+        <h2>Iniciar Sesión</h2>
+        <form class="col s12" id="login">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" required>
+                    <label for="email">Correo Electrónico</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" required>
+                    <label for="password">Contraseña</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Iniciar Sesión
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de MaterializeCSS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <script>
+        document.getElementById('login').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe y la página se recargue
+
+            // Validación de HTML simple
+            if (this.checkValidity()) {
+                // Recuperar datos del formulario
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+
+                // Alerta con los datos del formulario
+                var data = {
+                    email: email,
+                    password: password
+                };
+
+                // Enviar los datos al servidor utilizando Axios
+                axios.post('https://corsproxy.io/?https://n8n.caprover.dreamcanvas.cloud/webhook/0226e7c1-eeab-4fd4-bcf1-d5b23b52919c', data)
+                    .then(function(response) {
+                        // Manejar la respuesta del servidor aquí
+                        let datas = response.data
+                        console.log(response.data); // Puedes mostrar la respuesta en la consola o realizar otras acciones
+                        if (datas.message || datas.success == false) {
+                            let toastHTML = '<span>La cuenta no existe o existe algun error en los datos ingresados</span><a href="/register.html" class="btn-flat toast-action">Restrate</a>';
+                            M.toast({html: toastHTML});
+                        }
+
+                        if (datas.success == true) {
+                            localStorage.setItem('token', datas.token);
+                            localStorage.setItem('user', JSON.stringify(data));
+                            window.location.href = '/map.html';
+                        }
+                    })
+                    .catch(function(error) {
+                        // Manejar los errores aquí
+                        console.error(error);
+                    });
+
+            } else {
+                alert("Por favor complete todos los campos requeridos.");
+            }
+        });
+
+
+
+
+        // var instance = M.Modal.getInstance(document.querySelectorAll("#modal1"));
+        // instance.open();
+            document.addEventListener('DOMContentLoaded', function () {
+                // let elems = document.querySelectorAll('.modal');
+                // let instances = M.Modal.init(elems);
+                M.AutoInit();
+            });
+
+
+
+
+    </script>
+</body>
+</html>

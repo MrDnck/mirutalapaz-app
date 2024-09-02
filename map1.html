@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Agrega los enlaces a los archivos CSS de MaterializeCSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+</head>
+<style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.app {
+  width: 100%;
+  /* height: 100vh; */
+}
+
+header {
+  background-color: #fff;
+  padding: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+main {
+  padding: 1rem;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #ccc;
+  padding: 1rem;
+}
+
+.tabs {
+    /* z-index: 1 !important; */
+    height: 45px !important;
+    display: flex;
+    justify-content: center;
+    background-color: #ccc;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tabs li {
+    font-size: 1.2rem;
+  display: inline-block;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border-radius: 2px;
+}
+
+.tabs li a {
+  color: #000;
+  text-decoration: none;
+}
+
+.tabs li.active a {
+  /* background-color: #000; */
+  color: #0326a3;
+}
+
+.hamburger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  height: 3rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger i {
+  color: #000;
+  font-size: 2.5rem;
+}
+
+.hamburger.is-active {
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.hamburger.is-active i {
+  transform: rotate(45deg);
+}
+
+
+#botones a {
+    display: block;
+    margin-bottom: 30px;
+    margin-top: -20px;
+}
+</style>
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+</style>
+<body>
+
+    <ul id="slide-out" class="sidenav">
+        <li><div class="user-view">
+          <div class="background">
+            <img src="/assets/img/office.jpg">
+          </div>
+          <a href="#"><img class="circle" id="photo" src="https://ui-avatars.com/api/?background=random&format=svg&bold=true&name=cristian@gmail.com"></a>
+          <a href="#"><span class="white-text name email" id="email">cristian@gmail.com</span></a>
+          <!-- <a href="#"><span class="white-text email">jdandturk@gmail.com</span></a> -->
+        </div></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">favorite</i>Favoritos</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">report</i>Alertas</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">mail</i>Notificaciones</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">settings</i>Configuracion</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">share</i>Compartir</a></li>
+        <li><a href="javascript:comingSoon()" class="waves-effect"><i class="material-icons">help</i>Ayuda y soporte</a></li>
+        <li><a href="javascript:logout()" class="waves-effect"><i class="material-icons">logout</i>Cerrar sesion</a></li>
+      </ul>
+
+
+    <div class="app">
+        <header>
+          <button class="hamburger" style="z-index: 1;">
+            <i class="fa fa-bars"></i>
+          </button>
+          <!-- <h1>Titulo</h1> -->
+        </header>
+        <main>
+            <section>
+              <h1>Busqueda</h1>
+              <input type="text" id="searchInput" placeholder="Buscar...">
+          
+              <table id="data">
+                  <thead>
+                      <tr>
+                          <th>Nombre de Ruta</th>
+                          <th>Línea</th>
+                          <th>Sindicato</th>
+                      </tr>
+                  </thead>
+                  <tbody></tbody>
+              </table>
+<br>
+<br>
+<br>
+                </div>
+            </section>
+
+        </main>
+
+
+
+        <footer>
+    <ul class="tabs">
+      <li><a href="/map.html">
+        <i class="fa fa-bus"></i>
+        Paradas
+      </a></li>
+      <!-- <li><a href="#">
+        <i class="fa fa-map-marker-alt"></i>
+        Ubicaciones
+      </a></li> -->
+      <li class="active"><a href="/map1.html">
+        <i class="fa fa-road"></i>
+        Líneas
+      </a></li>
+    </ul>
+    
+        </footer>
+      </div>
+
+    <!-- Agrega los enlaces a los archivos JavaScript de MaterializeCSS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/assets/js/valit-auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // let elems = document.querySelectorAll('.modal');
+                // let instances = M.Modal.init(elems);
+                // M.Sidenav.init(document.querySelectorAll('.sidenav'));
+                window.perfileSet();
+                M.AutoInit();
+                
+            });
+
+            const hamburger = document.querySelector(".hamburger");
+            hamburger.addEventListener("click", function () {
+                let instaside = M.Sidenav.getInstance(document.getElementById("slide-out"));
+                instaside.open();
+            });
+            
+
+
+
+            function comingSoon() {
+                M.toast({html: '<span>Esta opcion aun esta en desarrollo</span>'});
+                let instaside = M.Sidenav.getInstance(document.getElementById("slide-out"));
+                instaside.close();
+            }
+
+
+
+
+            function perfileSet() {
+                let mainUrl = "https://ui-avatars.com/api/?background=random&format=svg&bold=true&name=";
+                let user = JSON.parse(localStorage.getItem('user'));
+                document.getElementById("photo").src = `${mainUrl}${user.email}`;
+                document.getElementById("email").innerText = `${user.email}`;
+            }
+            
+
+
+            function logout() {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = "/index.html"
+            }
+
+    </script>
+
+
+
+    <script>
+
+axios.get('https://corsproxy.io/?https://n8n.caprover.dreamcanvas.cloud/webhook/383548b4-f1f5-4fc0-ae7f-1255487c6804')
+.then(function(response) {
+    // Manejar la respuesta del servidor aquí
+    let datas = response.data
+     // Puedes mostrar la respuesta en la consola o realizar otras acciones
+    var jsonData = datas.data
+    console.log(data);
+
+    const tableBody = document.querySelector("#data tbody");
+const searchInput = document.querySelector("#searchInput");
+
+// Función para renderizar la tabla
+function renderTable(data) {
+    tableBody.innerHTML = "";
+    data.forEach(item => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `<td>${item.name_ruta}</td><td>${item.linea}</td><td>${item.sindicato}</td>`;
+    });
+}
+
+// Función para filtrar los datos en la tabla
+function filterData() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredData = jsonData.filter(item => {
+        return item.name_ruta.toLowerCase().includes(searchTerm) ||
+               item.linea.toString().includes(searchTerm) ||
+               item.sindicato.toLowerCase().includes(searchTerm);
+    });
+    renderTable(filteredData);
+}
+
+// Evento de escucha para el filtro
+searchInput.addEventListener("input", filterData);
+
+// Mostrar todos los datos al cargar la página
+renderTable(jsonData);
+
+
+
+
+
+
+})
+.catch(function(error) {
+    // Manejar los errores aquí
+    alert("ocurrio algun error")
+    console.error(error);
+});
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
